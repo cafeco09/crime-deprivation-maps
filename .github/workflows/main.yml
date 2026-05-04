@@ -12,6 +12,9 @@ on:
 permissions:
   contents: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   generate-graphs:
     runs-on: ubuntu-latest
@@ -21,6 +24,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           persist-credentials: true
+
+      - name: Show repository structure
+        run: |
+          echo "Current directory:"
+          pwd
+          echo ""
+          echo "Files:"
+          find . -maxdepth 3 -type f | sort
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -32,9 +43,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas matplotlib
 
-      - name: Create graphs folder
+      - name: Check graph script exists
         run: |
-          mkdir -p graphs
+          if [ ! -f scripts/generate_graphs.py ]; then
+            echo "ERROR: scripts/generate_graphs.py not found."
+            echo "Your repo must contain scripts/generate_graphs.py at the root level."
+            exit 2
+          fi
 
       - name: Run graph generation script
         run: |
@@ -43,7 +58,7 @@ jobs:
       - name: List generated graphs
         run: |
           echo "Generated graph files:"
-          find graphs -type f -maxdepth 1 -print
+          find graphs -type f -maxdepth 1 -print || true
 
       - name: Commit generated graphs
         if: github.event_name != 'pull_request'
