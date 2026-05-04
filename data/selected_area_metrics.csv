@@ -1,0 +1,5 @@
+area,supported_asylum_seekers_end_dec_2025,latest_recorded_crime_rate_per_1000,deprivation_context_scale_1_to_5,deprivation_context_label,data_note
+Birmingham,2637,118.13,5,Very high deprivation context,Selected local authority with high asylum-support caseload
+Liverpool,2189,125.03,4,Higher deprivation context,Selected local authority with high asylum-support caseload
+Hillingdon,2133,99.31,2,Lower deprivation context relative to selected comparison areas,Selected local authority with high asylum-support caseload and lower deprivation context than comparison areas
+Manchester,1846,155.63,5,Very high deprivation context,Selected local authority with high asylum-support caseload
